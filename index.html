@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		a {
+			margin: 2px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="menu">
+		<a href="#home">home</a>
+		<a href="#page1">Page 1</a>
+		<a href="#page10202">error</a>
+	</div>
+	<hr>
+	<div id="content"></div>
+
+	<script>
+		function get_content() {
+			setTimeout(() => {
+				let url = window.location.href.split('#')
+				let page = url[1] || 'home'
+
+				fetch(`${url[0]}/pages/${page}.html`).then(response => {
+					return response.text()
+				}).then(content => {
+					document.getElementById("content").innerHTML = content
+				})
+			})
+		}
+		window.onhashchange = () => get_content()
+		get_content()
+	</script>
+</body>
+
+</html>
